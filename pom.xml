@@ -49,9 +49,6 @@
 			    <sourceDirectory>src/main/javascript</sourceDirectory>
                             <outputDirectory>${basedir}/target/javascript</outputDirectory>
 			    <suffix>-${project.version}.min</suffix>
-			<!--
-                            <jswarn>false</jswarn>
-			    -->
                         </configuration>
                     </execution>
                 </executions>
