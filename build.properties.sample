@@ -1,0 +1,7 @@
+# Replace this with your Google Maps API key and rename the file to build.properties
+# This is required for the unit tests to run against Google Maps and ensure that
+# nothing is broken.
+#
+# You can create an API key at:
+# https://code.google.com/apis/console
+googlemaps.apikey=YOUR_API_KEY
