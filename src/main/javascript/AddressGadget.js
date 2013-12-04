@@ -34,7 +34,7 @@ AddressGadget.prototype.doCallback = function(callbacks, fnName, args) {
 function AddressGadgetGMap() {
     AddressGadget.call(this);
     this.geocoder = new google.maps.Geocoder();
-    this.routeInPCode = ['ca','uk']; // countries with pcodes that identify a very small set of addresses
+    this.routeInPCode = ['ca','gb']; // countries with pcodes that identify a very small set of addresses
 }
 AddressGadgetGMap.prototype = AddressGadget.prototype;
 
@@ -120,7 +120,8 @@ AddressGadgetGMap.prototype.toAddr = function(addr, res, includeRoute) {
         tlaal: this.getAddressComponent(acArr, 'long_name', 'administrative_area_level_1'),
         tlaas: this.getAddressComponent(acArr, 'short_name', 'administrative_area_level_1'),
         postalCode: p,
-        countryCode: addr.countryCode,
+        countryCode: this.getAddressComponent(acArr, 'short_name', 'country'),
+        country: this.getAddressComponent(acArr, 'long_name', 'country'),
         accuracy: res.geometry.location_type,
         debug: res
     };
@@ -137,7 +138,10 @@ AddressGadgetGMap.prototype.lookupPostalCode = function(addr, callbacks) {
     var ms = Date.now();
     // first transform the postal code to lat/lon
     t.geocoder.geocode(
-        {'address': v},
+        {
+            'address': addr.postalCode,
+	    'region': addr.countryCode
+        },
         function(results, status) {
             var res = {
                 op: 'lookupPostalCode',
@@ -167,6 +171,7 @@ AddressGadgetGMap.prototype.lookupPostalCode = function(addr, callbacks) {
                                 return t.equalsIgnoreCaseWithRegex(s, addr.postalCode, /[\s-]+/g, '', t.firstN(addr.countryCode));
                             });
                             res.code = 'SUCCESS';
+			    // TODO: fail when the country doesn't match
                             t.doCallback(callbacks, 'onFullAddressMatch', res, t.toAddr(addr, dbg, t.includeRoute(addr.countryCode)));
                         } else {
                             res.code = 'ERROR';

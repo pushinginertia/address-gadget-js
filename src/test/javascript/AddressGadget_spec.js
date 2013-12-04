@@ -47,7 +47,7 @@ describe('AddressGadgetGMap', function() {
         var gc = new AddressGadgetGMap();
         expect(gc.includeRoute('au')).toBe(false);
         expect(gc.includeRoute('ca')).toBe(true);
-        expect(gc.includeRoute('uk')).toBe(true);
+        expect(gc.includeRoute('gb')).toBe(true);
         expect(gc.includeRoute('us')).toBe(false);
     });
 
@@ -59,7 +59,7 @@ function testAllLookupPostalCode(gc) {
         gc,
         {
             postalCode: 'W1B 3BR',
-            countryCode: 'uk'
+            countryCode: 'gb'
         },
         {
             lat: 51.5142181,
@@ -68,7 +68,7 @@ function testAllLookupPostalCode(gc) {
             tlaal: null,
             tlaas: null,
             postalCode: 'W1B 3BR',
-            countryCode: 'uk',
+            countryCode: 'GB',
             streetNumber: null,
             route: null,
             neighborhood: null
@@ -78,7 +78,7 @@ function testAllLookupPostalCode(gc) {
         gc,
         {
             postalCode: 'W1D 5JL',
-            countryCode: 'uk'
+            countryCode: 'gb'
         },
         {
             lat: 51.5132039,
@@ -87,7 +87,7 @@ function testAllLookupPostalCode(gc) {
             tlaal: null,
             tlaas: null,
             postalCode: 'W1D 5JL',
-            countryCode: 'uk',
+            countryCode: 'GB',
             streetNumber: '23-25',
             route: 'Old Compton Street',
             neighborhood: null
@@ -106,7 +106,7 @@ function testAllLookupPostalCode(gc) {
             tlaal: 'British Columbia',
             tlaas: 'BC',
             postalCode: 'V6R 2B2',
-            countryCode: 'ca',
+            countryCode: 'CA',
             streetNumber: '3338-3396',
             route: 'West Broadway',
             neighborhood: 'Kitsilano'
@@ -125,7 +125,7 @@ function testAllLookupPostalCode(gc) {
             tlaal: 'Ontario',
             tlaas: 'ON',
             postalCode: 'M4W 2H2',
-            countryCode: 'ca',
+            countryCode: 'CA',
             streetNumber: '869',
             route: 'Yonge Street',
             neighborhood: 'Rosedale'
@@ -144,7 +144,7 @@ function testAllLookupPostalCode(gc) {
             tlaal: 'California',
             tlaas: 'CA',
             postalCode: '90210',
-            countryCode: 'us'
+            countryCode: 'US'
         }
     );
     testLookupPostalCode(
@@ -160,7 +160,7 @@ function testAllLookupPostalCode(gc) {
             tlaal: 'California',
             tlaas: 'CA',
             postalCode: '92120',
-            countryCode: 'us'
+            countryCode: 'US'
         }
     );
     testLookupPostalCode(
@@ -176,7 +176,7 @@ function testAllLookupPostalCode(gc) {
             tlaal: 'Queensland',
             tlaas: 'QLD',
             postalCode: '4113',
-            countryCode: 'au'
+            countryCode: 'AU'
         }
     );
     testLookupPostalCode(
@@ -192,7 +192,7 @@ function testAllLookupPostalCode(gc) {
             tlaal: 'Victoria',
             tlaas: 'VIC',
             postalCode: '3188',
-            countryCode: 'au'
+            countryCode: 'AU'
         }
     );
 }
