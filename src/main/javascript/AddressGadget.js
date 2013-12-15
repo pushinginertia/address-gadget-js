@@ -34,13 +34,13 @@ AddressGadget.prototype.doCallback = function(callbacks, fnName, args) {
 function AddressGadgetGMap() {
     AddressGadget.call(this);
     this.geocoder = new google.maps.Geocoder();
-    this.routeInPCode = ['ca','gb']; // countries with pcodes that identify a very small set of addresses
+    this.routeInPCode = ['CA','GB']; // countries with postal codes that identify a very small set of addresses, generally down to a block on a street
 }
 AddressGadgetGMap.prototype = AddressGadget.prototype;
 
 // Some countries have postal codes that are specific to a street while others cover large areas
 AddressGadgetGMap.prototype.includeRoute = function(countryCode) {
-    return this.routeInPCode.indexOf(countryCode) >= 0;
+    return this.routeInPCode.indexOf(countryCode.toUpperCase()) >= 0;
 }
 
 // ac: a value in the address_components[] array
@@ -100,7 +100,7 @@ AddressGadgetGMap.prototype.equalsIgnoreCaseWithRegex = function (s1, s2, replac
 }
 // google gets a lot of Canadian postal codes wrong, so only match on the first 3 characters
 AddressGadgetGMap.prototype.firstN = function(countryCode) {
-    if (countryCode === 'ca') { return 3; }
+    if (countryCode.toUpperCase() === 'CA') { return 3; }
     return 0;
 }
 AddressGadgetGMap.prototype.toAddr = function(addr, res, includeRoute) {
@@ -140,7 +140,7 @@ AddressGadgetGMap.prototype.lookupPostalCode = function(addr, callbacks) {
     t.geocoder.geocode(
         {
             'address': addr.postalCode,
-	    'region': addr.countryCode
+            'region': addr.countryCode
         },
         function(results, status) {
             var res = {
@@ -170,9 +170,15 @@ AddressGadgetGMap.prototype.lookupPostalCode = function(addr, callbacks) {
                                 var s = ac.long_name;
                                 return t.equalsIgnoreCaseWithRegex(s, addr.postalCode, /[\s-]+/g, '', t.firstN(addr.countryCode));
                             });
-                            res.code = 'SUCCESS';
-			    // TODO: fail when the country doesn't match
-                            t.doCallback(callbacks, 'onFullAddressMatch', res, t.toAddr(addr, dbg, t.includeRoute(addr.countryCode)));
+                            var a = t.toAddr(addr, dbg, t.includeRoute(addr.countryCode));
+                            if (a.countryCode.toUpperCase() !== addr.countryCode.toUpperCase()) {
+                                // no match when country mismatch
+                                res.code = 'NO_MATCH';
+                                t.doCallback(callbacks, 'onNoMatch', res);
+                            } else {
+                                res.code = 'SUCCESS';
+                                t.doCallback(callbacks, 'onFullAddressMatch', res, a);
+                            }
                         } else {
                             res.code = 'ERROR';
                             res.msg = 'Reverse geocode lookup from postal code [' + v + '] and lat/lon [' + latlon + '] failed with status: ' + status;

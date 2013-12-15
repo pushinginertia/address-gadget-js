@@ -45,10 +45,10 @@ describe('AddressGadgetGMap', function() {
 
     it('includeRoute', function() {
         var gc = new AddressGadgetGMap();
-        expect(gc.includeRoute('au')).toBe(false);
-        expect(gc.includeRoute('ca')).toBe(true);
-        expect(gc.includeRoute('gb')).toBe(true);
-        expect(gc.includeRoute('us')).toBe(false);
+        expect(gc.includeRoute('AU')).toBe(false);
+        expect(gc.includeRoute('CA')).toBe(true);
+        expect(gc.includeRoute('GB')).toBe(true);
+        expect(gc.includeRoute('US')).toBe(false);
     });
 
     testAllLookupPostalCode(new AddressGadgetGMap());
@@ -59,7 +59,7 @@ function testAllLookupPostalCode(gc) {
         gc,
         {
             postalCode: 'W1B 3BR',
-            countryCode: 'gb'
+            countryCode: 'GB'
         },
         {
             lat: 51.5142181,
@@ -78,7 +78,7 @@ function testAllLookupPostalCode(gc) {
         gc,
         {
             postalCode: 'W1D 5JL',
-            countryCode: 'gb'
+            countryCode: 'GB'
         },
         {
             lat: 51.5132039,
@@ -97,7 +97,7 @@ function testAllLookupPostalCode(gc) {
         gc,
         {
             postalCode: 'V6R 2B2',
-            countryCode: 'ca'
+            countryCode: 'CA'
         },
         {
             lat: 49.2642568,
@@ -116,7 +116,7 @@ function testAllLookupPostalCode(gc) {
         gc,
         {
             postalCode: 'M4W 2H2',
-            countryCode: 'ca'
+            countryCode: 'CA'
         },
         {
             lat: 43.6740068,
@@ -135,7 +135,7 @@ function testAllLookupPostalCode(gc) {
         gc,
         {
             postalCode: '90210',
-            countryCode: 'us'
+            countryCode: 'US'
         },
         {
             lat: 34.102898,
@@ -151,7 +151,7 @@ function testAllLookupPostalCode(gc) {
         gc,
         {
             postalCode: '92120',
-            countryCode: 'us'
+            countryCode: 'US'
         },
         {
             lat: 32.7931503,
@@ -167,7 +167,7 @@ function testAllLookupPostalCode(gc) {
         gc,
         {
             postalCode: '4113',
-            countryCode: 'au'
+            countryCode: 'AU'
         },
         {
             lat: -27.589278,
@@ -183,7 +183,7 @@ function testAllLookupPostalCode(gc) {
         gc,
         {
             postalCode: '3188',
-            countryCode: 'au'
+            countryCode: 'AU'
         },
         {
             lat: -37.939468,
