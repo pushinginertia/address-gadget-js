@@ -1,21 +1,23 @@
 // indexOf does not exist in IE8 and earlier
-Array.prototype.hasObject = (
-  !Array.indexOf ? function (o)
-  {
-    var l = this.length + 1;
-    while (l -= 1)
-    {
-        if (this[l - 1] === o)
-        {
-            return true;
+if (!Array.indexOf) {
+    Array.prototype.indexOf = function(obj) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] === obj) {
+                return i;
+            }
         }
+        return -1;
     }
-    return false;
-  } : function (o)
-  {
+}
+// Date.now() does not exist in IE8 and earlier
+if (!Date.now) {
+    Date.now = function() {
+        return +new Date;
+    };
+} 
+Array.prototype.hasObject = function (o) {
     return (this.indexOf(o) !== -1);
-  }
-);
+}
 
 function AddressGadget() {}
 // postalCode, countryCode must be set in addr
