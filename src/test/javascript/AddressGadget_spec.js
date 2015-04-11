@@ -48,6 +48,7 @@ describe('AddressGadgetGMap', function() {
         expect(gc.includeRoute('AU')).toBe(false);
         expect(gc.includeRoute('CA')).toBe(true);
         expect(gc.includeRoute('GB')).toBe(true);
+        expect(gc.includeRoute('NZ')).toBe(false);
         expect(gc.includeRoute('US')).toBe(false);
     });
 
@@ -91,6 +92,22 @@ function testAllLookupPostalCode(gc) {
             streetNumber: '23-25',
             route: 'Old Compton Street',
             neighborhood: null
+        }
+    );
+    testLookupPostalCode(
+        gc,
+        {
+            postalCode: '1023',
+            countryCode: 'NZ'
+        },
+        {
+            lat: -36.8903446,
+            lon: 174.7707223,
+            locality: 'Auckland',
+            tlaal: null,
+            tlaas: null,
+            postalCode: '1023',
+            countryCode: 'NZ'
         }
     );
     testLookupPostalCode(

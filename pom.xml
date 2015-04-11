@@ -4,7 +4,7 @@
     <groupId>com.pushinginertia.commons</groupId>
     <artifactId>pushinginertia-commons-js</artifactId>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>1.1</version>
 
     <properties>
         <properties-maven-plugin.version>1.0-alpha-2</properties-maven-plugin.version>
@@ -37,7 +37,7 @@
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>yuicompressor-maven-plugin</artifactId>
-                <version>1.1</version>
+                <version>1.5.0</version>
                 <executions>
                     <execution>
                         <id>compressyui</id>
@@ -45,13 +45,13 @@
                         <goals>
                             <goal>compress</goal>
                         </goals>
-                        <configuration>
-			    <sourceDirectory>src/main/javascript</sourceDirectory>
-                            <outputDirectory>${basedir}/target/javascript</outputDirectory>
-			    <suffix>-${project.version}.min</suffix>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <sourceDirectory>src/main/javascript</sourceDirectory>
+                    <outputDirectory>${basedir}/target/javascript</outputDirectory>
+                    <suffix>-${project.version}.min</suffix>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.github.searls</groupId>

@@ -14,7 +14,7 @@ if (!Date.now) {
     Date.now = function() {
         return +new Date;
     };
-} 
+}
 Array.prototype.hasObject = function (o) {
     return (this.indexOf(o) !== -1);
 }
@@ -118,15 +118,21 @@ AddressGadgetGMap.prototype.toAddr = function(addr, res, includeRoute) {
     var o = {
         lat: latlon.lat(),
         lon: latlon.lng(),
+        sublocality: this.getAddressComponent(acArr, 'long_name', 'sublocality', 'sublocality_level_1'),
         locality: this.getAddressComponent(acArr, 'long_name', 'postal_town', 'locality'),
-        tlaal: this.getAddressComponent(acArr, 'long_name', 'administrative_area_level_1'),
-        tlaas: this.getAddressComponent(acArr, 'short_name', 'administrative_area_level_1'),
         postalCode: p,
         countryCode: this.getAddressComponent(acArr, 'short_name', 'country'),
         country: this.getAddressComponent(acArr, 'long_name', 'country'),
         accuracy: res.geometry.location_type,
         debug: res
     };
+    if (!o.locality) {
+        // postal town is present in AAL1 for NZ so let's fix this
+        o.locality = this.getAddressComponent(acArr, 'long_name', 'administrative_area_level_1');
+    } else {
+        o.tlaal = this.getAddressComponent(acArr, 'long_name', 'administrative_area_level_1');
+        o.tlaas = this.getAddressComponent(acArr, 'short_name', 'administrative_area_level_1');
+    }
     if (includeRoute) {
         o.streetNumber = this.getAddressComponent(acArr, 'long_name', 'street_number');
         o.route = this.getAddressComponent(acArr, 'long_name', 'route');
